@@ -1,0 +1,226 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Brand Column -->
+      <div class="footer-col">
+        <div class="footer-brand">
+          <span class="footer-logo" aria-hidden="true">🥗</span>
+          <h3 class="footer-title">The Diet Guru</h3>
+        </div>
+        <p class="footer-tagline">
+          Bridging the gap between clinical science and daily nutrition through evidence-based guidance.
+        </p>
+        <p class="footer-subtitle">Food is Medicine.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Explore</h4>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog">Articles</a></li>
+          <li><a href="/recipes">Healthy Recipes</a></li>
+          <li><a href="/about">Our Mission</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Connect -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Stay Connected</h4>
+        <p class="footer-text">
+          Get the latest medical breakdowns of trendy diets delivered weekly.
+        </p>
+        <form class="subscribe-form" action="#" method="POST">
+          <input
+            type="email"
+            placeholder="your@email.com"
+            class="subscribe-input"
+            required
+            aria-label="Email for newsletter"
+          />
+          <button type="submit" class="subscribe-btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>&copy; {currentYear} The Diet Guru. A <a href="https://clockworkapps.com" class="clockwork-link">Clockwork Apps</a> initiative.</p>
+      <div class="footer-legal">
+        <a href="/about">About</a>
+        <span aria-hidden="true">·</span>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #1A1A1A;
+    color: #d1d1d1;
+    margin-top: 5rem;
+  }
+
+  .footer-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1.5fr 1fr 1.2fr;
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo { font-size: 1.75rem; }
+
+  .footer-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+  }
+
+  .footer-tagline {
+    color: #888;
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+  }
+
+  .footer-subtitle {
+    color: #8aa579;
+    font-weight: 600;
+    font-style: italic;
+    margin: 0;
+  }
+
+  .footer-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer-links a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.938rem;
+  }
+  .footer-links a:hover { color: #8aa579; }
+
+  .footer-text {
+    color: #888;
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+    font-size: 0.938rem;
+  }
+
+  .subscribe-form {
+    display: flex;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #454545;
+  }
+
+  .subscribe-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: #2b2b2b;
+    border: none;
+    color: #fff;
+    font-size: 0.875rem;
+    outline: none;
+  }
+  .subscribe-input::placeholder { color: #6d6d6d; }
+  .subscribe-input:focus {
+    background: #333;
+  }
+
+  .subscribe-btn {
+    padding: 0.75rem 1.25rem;
+    background: #4F7942;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .subscribe-btn:hover { background: #406338; }
+
+  /* Bottom Bar */
+  .footer-bottom {
+    border-top: 1px solid #333;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
+    font-size: 0.813rem;
+    color: #6d6d6d;
+  }
+  @media (min-width: 768px) {
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .footer-bottom p { margin: 0; }
+
+  .clockwork-link {
+    color: #8aa579;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .clockwork-link:hover { color: #abc09f; }
+
+  .footer-legal {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .footer-legal a {
+    color: #6d6d6d;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-legal a:hover { color: #8aa579; }
+</style>

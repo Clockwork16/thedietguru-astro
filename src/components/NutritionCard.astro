@@ -1,0 +1,63 @@
+---
+interface Props {
+  nutrition: {
+    calories: string;
+    protein: string;
+    carbs: string;
+    fat: string;
+    sugar: string;
+    fiber: string;
+  };
+}
+
+const { nutrition } = Astro.props;
+
+const macros = [
+  { name: 'Calories', value: nutrition.calories, icon: '🔥', ariaLabel: 'Total calories' },
+  { name: 'Protein', value: nutrition.protein, icon: '💪', ariaLabel: 'Protein content' },
+  { name: 'Carbs', value: nutrition.carbs, icon: '🌾', ariaLabel: 'Carbohydrate content' },
+  { name: 'Fat', value: nutrition.fat, icon: '🥑', ariaLabel: 'Fat content' },
+  { name: 'Sugar', value: nutrition.sugar, icon: '🍯', ariaLabel: 'Sugar content' },
+  { name: 'Fiber', value: nutrition.fiber, icon: '🌿', ariaLabel: 'Fiber content' },
+];
+---
+
+<div class="nutrition-card bg-white rounded-xl shadow-soft-lg border-2 border-sage-200 p-6 md:p-8">
+  <h3 class="text-2xl md:text-3xl font-bold text-sage-600 mb-6 flex items-center gap-2">
+    <span class="text-3xl">📊</span>
+    <span>Nutrition Facts</span>
+  </h3>
+  
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+    {macros.map((macro) => (
+      <div 
+        class="macro-item bg-cream-100 rounded-lg p-4 border-l-4 border-sage-500 hover:shadow-sage hover:border-sage-600 transition-all duration-200"
+        aria-label={macro.ariaLabel}
+      >
+        <div class="text-3xl mb-2 text-center" aria-hidden="true">
+          {macro.icon}
+        </div>
+        <div class="text-xs md:text-sm font-medium text-charcoal-600 uppercase tracking-wide mb-1 text-center">
+          {macro.name}
+        </div>
+        <div class="text-xl md:text-2xl font-bold text-sage-700 text-center">
+          {macro.value}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .nutrition-card {
+    @apply transition-transform duration-200;
+  }
+  
+  .nutrition-card:hover {
+    @apply transform scale-[1.01];
+  }
+  
+  .macro-item {
+    @apply cursor-default;
+  }
+</style>

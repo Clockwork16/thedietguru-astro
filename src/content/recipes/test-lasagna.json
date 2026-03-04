@@ -1,0 +1,27 @@
+{
+  "title": "Healthy Vegetable Lasagna with Ricotta",
+  "slug": "test-lasagna",
+  "description": "A nutritious twist on classic lasagna, packed with fresh vegetables, creamy ricotta, and protein-rich layers. This wholesome recipe delivers comfort food satisfaction while keeping your health goals on track.",
+  "content_html": "<div class='recipe-content'><h2>Ingredients</h2><h3>For the Vegetable Filling:</h3><ul><li>2 medium zucchini, diced</li><li>1 large eggplant, cubed</li><li>2 cups fresh spinach</li><li>1 red bell pepper, chopped</li><li>3 cloves garlic, minced</li><li>2 tbsp olive oil</li><li>1 tsp Italian seasoning</li><li>Salt and pepper to taste</li></ul><h3>For the Cheese Layer:</h3><ul><li>15 oz ricotta cheese (part-skim)</li><li>1 cup cottage cheese</li><li>1 large egg</li><li>1/4 cup fresh basil, chopped</li><li>1/2 cup Parmesan cheese, grated</li></ul><h3>Additional Layers:</h3><ul><li>9 whole wheat lasagna noodles</li><li>3 cups marinara sauce (low-sodium)</li><li>2 cups mozzarella cheese, shredded (part-skim)</li></ul><h2>Instructions</h2><ol><li><strong>Prepare the Vegetables:</strong> Heat olive oil in a large skillet over medium heat. Sauté garlic until fragrant, then add zucchini, eggplant, and bell pepper. Cook for 8-10 minutes until tender. Add spinach and cook until wilted. Season with Italian herbs, salt, and pepper. Set aside.</li><li><strong>Make the Cheese Mixture:</strong> In a bowl, combine ricotta, cottage cheese, egg, fresh basil, and half the Parmesan. Mix until smooth and well combined.</li><li><strong>Cook the Noodles:</strong> Prepare lasagna noodles according to package directions. Drain and set aside.</li><li><strong>Assemble the Lasagna:</strong> Preheat oven to 375°F (190°C). Spread 1 cup marinara sauce in a 9x13 inch baking dish. Layer 3 noodles, half the cheese mixture, half the vegetable filling, 1/3 of the mozzarella, and 1 cup sauce. Repeat layers. Top with remaining 3 noodles, sauce, mozzarella, and Parmesan.</li><li><strong>Bake:</strong> Cover with foil and bake for 25 minutes. Remove foil and bake an additional 15 minutes until cheese is golden and bubbly.</li><li><strong>Rest and Serve:</strong> Let stand for 10 minutes before cutting. This helps the layers set for clean slices.</li></ol><h2>Chef's Tips</h2><ul><li>You can prepare this lasagna a day ahead and refrigerate. Add 10 minutes to baking time if cooking from cold.</li><li>For a vegan version, substitute ricotta with cashew cream and use plant-based mozzarella.</li><li>Freeze individual portions for quick healthy meals throughout the week.</li><li>Pair with a crisp green salad dressed with lemon vinaigrette for a complete meal.</li></ul></div>",
+  "nutrition": {
+    "calories": "385",
+    "protein": "24g",
+    "carbs": "42g",
+    "fat": "14g",
+    "sugar": "8g",
+    "fiber": "7g"
+  },
+  "seo": {
+    "meta_description": "Discover our healthy vegetable lasagna recipe with ricotta cheese, packed with fresh vegetables and whole wheat noodles. A nutritious comfort food that supports your wellness goals with 24g protein per serving.",
+    "keywords": [
+      "healthy lasagna recipe",
+      "vegetable lasagna",
+      "ricotta lasagna",
+      "whole wheat lasagna",
+      "high protein vegetarian",
+      "meal prep lasagna",
+      "nutritious comfort food",
+      "low calorie lasagna"
+    ]
+  }
+}

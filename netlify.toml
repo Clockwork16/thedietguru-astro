@@ -1,0 +1,39 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Proxy WordPress backend paths to the origin server IP
+# This prevents redirect loops when thedietguru.org DNS points to Netlify
+[[redirects]]
+  from = "/backend/*"
+  to = "https://174.138.190.150/backend/:splat"
+  status = 200
+  force = true
+
+# Proxy WordPress admin so you can still manage WP
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "https://174.138.190.150/wp-admin/:splat"
+  status = 200
+  force = true
+
+# Proxy WordPress login
+[[redirects]]
+  from = "/wp-login.php"
+  to = "https://174.138.190.150/wp-login.php"
+  status = 200
+  force = true
+
+# Proxy WP REST API (used by some plugins/admin)
+[[redirects]]
+  from = "/wp-json/*"
+  to = "https://174.138.190.150/wp-json/:splat"
+  status = 200
+  force = true
+
+# Proxy wp-content (images, uploads, themes)
+[[redirects]]
+  from = "/wp-content/*"
+  to = "https://174.138.190.150/wp-content/:splat"
+  status = 200
+  force = true

@@ -1,0 +1,201 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+const pathname = currentPath || Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Articles' },
+  { href: '/recipes', label: 'Recipes' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="header" id="site-header">
+  <div class="header-inner">
+    <!-- Logo -->
+    <a href="/" class="logo-link" aria-label="The Diet Guru Home">
+      <span class="logo-icon" aria-hidden="true">🥗</span>
+      <span class="logo-text">The Diet Guru</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class:list={['nav-link', { active: pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) }]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <button
+      class="mobile-toggle"
+      id="mobile-menu-toggle"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
+    {navLinks.map(link => (
+      <a
+        href={link.href}
+        class:list={['mobile-link', { active: pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) }]}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const nav = document.getElementById('mobile-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.classList.toggle('is-open');
+    nav?.toggleAttribute('hidden');
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid #cddbc7;
+    box-shadow: 0 2px 8px rgba(79, 121, 66, 0.06);
+  }
+
+  .header-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .logo-link:hover { opacity: 0.85; }
+
+  .logo-icon { font-size: 2rem; }
+
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #406338;
+    letter-spacing: -0.025em;
+  }
+
+  .desktop-nav {
+    display: none;
+    gap: 0.5rem;
+  }
+  @media (min-width: 768px) {
+    .desktop-nav { display: flex; }
+  }
+
+  .nav-link {
+    padding: 0.5rem 1rem;
+    color: #4f4f4f;
+    font-weight: 500;
+    font-size: 0.938rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .nav-link:hover {
+    color: #406338;
+    background: #f4f7f3;
+  }
+  .nav-link.active {
+    color: #4F7942;
+    background: #e6ede3;
+    font-weight: 600;
+  }
+
+  /* Mobile Toggle */
+  .mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    .mobile-toggle { display: none; }
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1A1A1A;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-toggle.is-open .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .mobile-toggle.is-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-toggle.is-open .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Mobile Nav */
+  .mobile-nav {
+    padding: 0.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-top: 1px solid #e6ede3;
+  }
+  @media (min-width: 768px) {
+    .mobile-nav { display: none !important; }
+  }
+
+  .mobile-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #4f4f4f;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .mobile-link:hover, .mobile-link.active {
+    color: #4F7942;
+    background: #e6ede3;
+  }
+</style>

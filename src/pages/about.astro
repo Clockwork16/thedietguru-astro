@@ -1,0 +1,316 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const team = [
+  {
+    name: 'Dr. Sarah Chen, RD, PhD',
+    role: 'Chief Medical Officer',
+    desc: 'Specializing in metabolic endocrinology and nutritional biochemistry.',
+    icon: '👩‍⚕️',
+  },
+  {
+    name: 'Marcus Thorne, MS, CSCS',
+    role: 'Lead Performance Nutritionist',
+    desc: 'Expert in nutrient timing and physiological performance optimization.',
+    icon: '🧑‍🔬',
+  },
+];
+
+const pillars = [
+  {
+    icon: '💓',
+    title: 'Metabolic Health',
+    desc: 'Optimizing glucose response and insulin sensitivity through macronutrient precision.',
+  },
+  {
+    icon: '🦠',
+    title: 'Gut Science',
+    desc: 'Nurturing the microbiome as the central engine of systemic immunity and mental clarity.',
+  },
+  {
+    icon: '🧬',
+    title: 'Longevity',
+    desc: 'Leveraging autophagy and cellular nutrition to extend both lifespan and healthspan.',
+  },
+];
+---
+
+<Layout
+  title="Our Mission"
+  description="The Diet Guru: democratizing medical-grade nutrition science. Meet our team, learn our story, and understand our evidence-based approach."
+  keywords={['about diet guru', 'food is medicine', 'nutrition mission', 'clockwork apps']}
+  canonicalPath="/about"
+>
+  <main class="about-page">
+    <!-- Hero -->
+    <section class="about-hero">
+      <div class="hero-inner">
+        <span class="hero-badge" aria-hidden="true">🩺 Medically Verified</span>
+        <h1 class="hero-title">Food is Medicine</h1>
+        <p class="hero-subtitle">
+          Bridging the gap between clinical science and daily nutrition
+          through evidence-based guidance.
+        </p>
+      </div>
+    </section>
+
+    <div class="about-inner">
+      <!-- Mission -->
+      <section class="mission-section">
+        <blockquote class="mission-quote">
+          "To democratize medical-grade nutrition science, empowering individuals
+          to reclaim their health through precise, bio-individual dietary protocols."
+        </blockquote>
+      </section>
+
+      <!-- Core Pillars -->
+      <section class="pillars-section">
+        <h2 class="section-title">Core Pillars</h2>
+        <div class="pillars-grid">
+          {pillars.map(pillar => (
+            <div class="pillar-card">
+              <span class="pillar-icon" aria-hidden="true">{pillar.icon}</span>
+              <h3 class="pillar-title">{pillar.title}</h3>
+              <p class="pillar-desc">{pillar.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Team -->
+      <section class="team-section">
+        <div class="team-header">
+          <h2 class="section-title">Scientific Authority</h2>
+          <p class="team-subtitle">Every plan is medically reviewed and verified.</p>
+        </div>
+        <div class="team-grid">
+          {team.map(member => (
+            <div class="team-card">
+              <span class="team-icon" aria-hidden="true">{member.icon}</span>
+              <h3 class="team-name">{member.name}</h3>
+              <p class="team-role">{member.role}</p>
+              <p class="team-desc">{member.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Story -->
+      <section class="story-section">
+        <h2 class="section-title">Our Story</h2>
+        <div class="story-content">
+          <p>
+            The Diet Guru was born from a simple realization: the internet is filled with diet trends,
+            but starving for clinical truth. We saw a world where health was being marketed, not managed.
+          </p>
+          <p>
+            In partnership with <strong>Clockwork Apps</strong>, we built a platform that translates the
+            complexity of peer-reviewed journals into actionable, daily nutrition. We don't believe in
+            "diets." We believe in biological data.
+          </p>
+          <div class="story-footer">
+            <p>
+              <em>The Diet Guru is a high-authority health technology initiative by
+              <a href="https://clockworkapps.com">Clockwork Apps</a>. We are committed to medical
+              transparency and data privacy in all our health protocols.</em>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* Hero */
+  .about-hero {
+    background: linear-gradient(160deg, #e6ede3 0%, #cddbc7 50%, #abc09f 100%);
+    padding: 5rem 1.5rem 4rem;
+    text-align: center;
+  }
+  .hero-inner {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    font-size: 0.813rem;
+    font-weight: 600;
+    color: #344f2e;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.03em;
+  }
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: #4f4f4f;
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .about-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 1.5rem;
+    text-align: center;
+  }
+
+  /* Mission */
+  .mission-section {
+    padding: 4rem 0;
+    text-align: center;
+  }
+  .mission-quote {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: #4f4f4f;
+    line-height: 1.8;
+    border: none;
+    padding: 2rem;
+    margin: 0;
+    background: #fff;
+    border-radius: 20px;
+    border-left: 6px solid #4F7942;
+    box-shadow: 0 4px 16px rgba(79, 121, 66, 0.08);
+  }
+
+  /* Pillars */
+  .pillars-section {
+    padding: 0 0 4rem;
+  }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .pillars-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .pillar-card {
+    padding: 2rem;
+    background: #fff;
+    border-radius: 16px;
+    border: 2px solid #e6ede3;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .pillar-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(79, 121, 66, 0.1);
+    border-color: #4F7942;
+  }
+  .pillar-icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .pillar-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.75rem;
+  }
+  .pillar-desc {
+    font-size: 0.875rem;
+    color: #5d5d5d;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Team */
+  .team-section { padding: 0 0 4rem; }
+  .team-header { margin-bottom: 2rem; }
+  .team-subtitle {
+    text-align: center;
+    color: #888;
+    margin: -0.75rem 0 0;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .team-card {
+    background: linear-gradient(135deg, #f4f7f3 0%, #fff 100%);
+    border: 2px solid #cddbc7;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  .team-card:hover { border-color: #4F7942; }
+  .team-icon {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .team-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.375rem;
+  }
+  .team-role {
+    font-size: 0.813rem;
+    font-weight: 600;
+    color: #4F7942;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.75rem;
+  }
+  .team-desc {
+    font-size: 0.875rem;
+    color: #5d5d5d;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Story */
+  .story-section { padding: 0 0 4rem; }
+  .story-content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid #e6ede3;
+  }
+  .story-content p {
+    color: #4f4f4f;
+    line-height: 1.8;
+    margin: 0 0 1.25rem;
+    font-size: 1rem;
+  }
+  .story-content strong { color: #1A1A1A; }
+  .story-content a {
+    color: #4F7942;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+  .story-content a:hover { color: #344f2e; }
+  .story-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e6ede3;
+  }
+  .story-footer p {
+    font-size: 0.875rem;
+    color: #888;
+  }
+</style>

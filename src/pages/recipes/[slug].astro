@@ -1,0 +1,308 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NutritionCard from '../../components/NutritionCard.astro';
+import { fetchGraphQL, GET_POST_BY_SLUG } from '../../lib/graphql';
+
+export async function getStaticPaths() {
+  const GET_ONLY_RECIPES = `
+    query GetOnlyRecipes {
+      posts(first: 100, where: { categoryId: 51 }) {
+        nodes {
+          slug
+          title
+          categories {
+            nodes {
+              databaseId
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const data = await fetchGraphQL(GET_ONLY_RECIPES);
+    const posts = data?.posts?.nodes || [];
+    return posts.map((post: any) => ({
+      params: { slug: post.slug },
+    }));
+  } catch (e) {
+    console.error('Failed to fetch recipe slugs:', e);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+
+let post: any = null;
+try {
+  const data = await fetchGraphQL(GET_POST_BY_SLUG, { slug });
+  post = data?.post;
+} catch (e) {
+  console.error('Failed to fetch recipe:', e);
+}
+
+if (!post) {
+  return Astro.redirect('/recipes');
+}
+
+const title = post.title || 'Untitled Recipe';
+const content = post.content || '';
+const imageUrl = post.featuredImage?.node?.sourceUrl;
+const imageAlt = post.featuredImage?.node?.altText || title;
+const authorName = post.author?.node?.name || 'The Diet Guru';
+
+// Nutrition data from custom fields (gracefully handle missing)
+const nutrition = post.nutritionData || null;
+const foodAnalysis = post.foodAnalysis || null;
+
+const formattedDate = post.date
+  ? new Date(post.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : null;
+---
+
+<Layout
+  title={title}
+  description={post.excerpt?.replace(/<[^>]*>/g, '').trim().slice(0, 160) || `Healthy recipe: ${title}`}
+  canonicalPath={`/recipes/${slug}`}
+  ogType="article"
+  ogImage={imageUrl}
+  article={{
+    publishedTime: post.date,
+    modifiedTime: post.modified,
+    author: authorName,
+  }}
+>
+  <main class="recipe-page">
+    <div class="recipe-inner">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/recipes">Recipes</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="current" aria-current="page">{title}</li>
+        </ol>
+      </nav>
+
+      <article>
+        <!-- Header -->
+        <header class="recipe-header">
+          <div class="reviewed-badge">
+            <span aria-hidden="true">✅</span>
+            <span>Reviewed By <strong>{authorName}</strong></span>
+          </div>
+
+          <h1 class="recipe-title">{title}</h1>
+
+          {post.excerpt && (
+            <p class="recipe-desc" set:html={post.excerpt} />
+          )}
+
+          {formattedDate && (
+            <time class="recipe-date" datetime={post.date}>{formattedDate}</time>
+          )}
+        </header>
+
+        <!-- Featured Image -->
+        {imageUrl && (
+          <div class="recipe-image">
+            <img src={imageUrl} alt={imageAlt} loading="eager" />
+          </div>
+        )}
+
+        <!-- Nutrition Card -->
+        {nutrition && (
+          <section class="nutrition-section" aria-labelledby="nutrition-heading">
+            <h2 id="nutrition-heading" class="sr-only">Nutritional Information</h2>
+            <NutritionCard nutrition={nutrition} />
+          </section>
+        )}
+
+        <!-- Recipe Content -->
+        <div class="recipe-content prose" set:html={content} />
+
+        <!-- Food Analysis -->
+        {foodAnalysis && (
+          <aside class="analysis-card">
+            <h3 class="analysis-title">
+              <span aria-hidden="true">🔬</span>
+              Food Analysis
+            </h3>
+            {foodAnalysis.riskLevel && (
+              <div class="analysis-row">
+                <span class="analysis-label">Risk Level:</span>
+                <span class:list={['analysis-value', `risk-${foodAnalysis.riskLevel}`]}>
+                  {foodAnalysis.riskLevel.toUpperCase()}
+                </span>
+              </div>
+            )}
+            {foodAnalysis.guruAlternative && (
+              <div class="analysis-row">
+                <span class="analysis-label">Healthier Alternative:</span>
+                <span class="analysis-value alt">{foodAnalysis.guruAlternative}</span>
+              </div>
+            )}
+            {foodAnalysis.beLabelDetected && (
+              <div class="analysis-alert">⚠️ BE Label Confirmed</div>
+            )}
+          </aside>
+        )}
+      </article>
+
+      <!-- CTA -->
+      <aside class="recipe-cta">
+        <h2>Love This Recipe?</h2>
+        <p>Discover more healthy, delicious recipes tailored to your dietary needs.</p>
+        <a href="/recipes" class="cta-btn">Explore More Recipes →</a>
+      </aside>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .recipe-page { padding: 2rem 1.5rem 4rem; }
+  .recipe-inner { max-width: 48rem; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: #888;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a { color: #5d5d5d; text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: #4F7942; }
+  .breadcrumb .current { color: #4F7942; font-weight: 600; }
+
+  /* Header */
+  .recipe-header { margin-bottom: 2.5rem; }
+  .reviewed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    background: #f4f7f3;
+    border: 1px solid #cddbc7;
+    border-radius: 20px;
+    font-size: 0.813rem;
+    color: #406338;
+    margin-bottom: 1.25rem;
+  }
+  .recipe-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 1rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+  .recipe-desc {
+    font-size: 1.125rem;
+    color: #5d5d5d;
+    line-height: 1.7;
+    margin: 0 0 0.75rem;
+  }
+  .recipe-desc :global(p) { margin: 0; }
+  .recipe-date { font-size: 0.813rem; color: #888; }
+
+  /* Featured Image */
+  .recipe-image {
+    margin-bottom: 2.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(79, 121, 66, 0.08);
+  }
+  .recipe-image img { width: 100%; height: auto; display: block; }
+
+  /* Nutrition */
+  .nutrition-section { margin-bottom: 2.5rem; }
+
+  /* Content */
+  .recipe-content { margin-bottom: 3rem; }
+
+  /* Food Analysis */
+  .analysis-card {
+    background: #fff;
+    border: 2px solid #cddbc7;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  .analysis-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .analysis-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f4f7f3;
+  }
+  .analysis-label { font-weight: 600; color: #4f4f4f; font-size: 0.938rem; }
+  .analysis-value { font-weight: 700; }
+  .risk-high { color: #d9534f; }
+  .risk-medium { color: #f0ad4e; }
+  .risk-low { color: #4F7942; }
+  .analysis-value.alt { color: #4F7942; }
+  .analysis-alert {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #fff3cd;
+    border: 1px solid #f0ad4e;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #856404;
+    font-size: 0.875rem;
+  }
+
+  /* CTA */
+  .recipe-cta {
+    background: linear-gradient(135deg, #4F7942, #2b4026);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    color: #fff;
+  }
+  .recipe-cta h2 { font-size: 1.5rem; font-weight: 800; margin: 0 0 0.75rem; }
+  .recipe-cta p { color: rgba(255,255,255,0.85); margin: 0 0 1.5rem; line-height: 1.6; }
+  .cta-btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: #fff;
+    color: #4F7942;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cta-btn:hover { background: #f4f7f3; transform: translateY(-1px); }
+
+  /* SR-only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+</style>

@@ -1,0 +1,105 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEOHead from '../components/SEOHead.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  keywords?: string[];
+  canonicalPath?: string;
+  ogType?: string;
+  ogImage?: string;
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+  };
+}
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEOHead {...props} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-WJ6863D3');
+    </script>
+  </head>
+  <body class="bg-cream-100 text-charcoal-900 font-sans antialiased">
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  /* Smooth focus styles */
+  :focus-visible {
+    outline: 2px solid #4F7942;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Base prose styling for WordPress content */
+  .prose h2 {
+    @apply text-3xl font-bold text-sage-700 mt-12 mb-6 border-b-2 border-sage-200 pb-3;
+  }
+  .prose h3 {
+    @apply text-2xl font-semibold text-sage-600 mt-8 mb-4;
+  }
+  .prose p {
+    @apply mb-4 leading-relaxed text-charcoal-800;
+  }
+  .prose ul, .prose ol {
+    @apply space-y-3 ml-6 mb-6;
+  }
+  .prose ul { @apply list-disc; }
+  .prose ol { @apply list-decimal; }
+  .prose li {
+    @apply text-charcoal-700 leading-relaxed pl-2;
+  }
+  .prose li strong {
+    @apply text-sage-700 font-semibold;
+  }
+  .prose a {
+    @apply text-sage-600 underline hover:text-sage-800 transition-colors;
+  }
+  .prose img {
+    @apply rounded-xl my-8 shadow-soft-lg;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-sage-400 pl-6 py-2 my-6 text-charcoal-700 italic bg-sage-50 rounded-r-lg;
+  }
+</style>

@@ -1,0 +1,353 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { fetchGraphQL, GET_ALL_BLOG_POSTS, GET_POST_BY_SLUG } from '../../lib/graphql';
+
+export async function getStaticPaths() {
+  try {
+    const data = await fetchGraphQL(GET_ALL_BLOG_POSTS);
+    const posts = data?.posts?.nodes || [];
+    return posts.map((post: any) => ({
+      params: { slug: post.slug },
+    }));
+  } catch (e) {
+    console.error('Failed to fetch slugs:', e);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+
+let post: any = null;
+try {
+  const data = await fetchGraphQL(GET_POST_BY_SLUG, { slug });
+  post = data?.post;
+} catch (e) {
+  console.error('Failed to fetch post:', e);
+}
+
+if (!post) {
+  return Astro.redirect('/blog');
+}
+
+const formattedDate = post.date
+  ? new Date(post.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : null;
+
+const authorName = post.author?.node?.name || 'The Diet Guru';
+const categories = post.categories?.nodes || [];
+const tags = post.tags?.nodes || [];
+---
+
+<Layout
+  title={post.title}
+  description={post.excerpt?.replace(/<[^>]*>/g, '').trim().slice(0, 160)}
+  canonicalPath={`/blog/${slug}`}
+  ogType="article"
+  ogImage={post.featuredImage?.node?.sourceUrl}
+  article={{
+    publishedTime: post.date,
+    modifiedTime: post.modified,
+    author: authorName,
+  }}
+>
+  <main class="article-page">
+    <div class="article-inner">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/blog">Articles</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="current" aria-current="page">{post.title}</li>
+        </ol>
+      </nav>
+
+      <article>
+        <!-- Article Header -->
+        <header class="article-header">
+          {categories.length > 0 && (
+            <div class="article-cats">
+              {categories.map((cat: any) => (
+                <span class="cat-badge">{cat.name}</span>
+              ))}
+            </div>
+          )}
+
+          <h1 class="article-title">{post.title}</h1>
+
+          <div class="article-meta">
+            <div class="meta-badge">
+              <span class="badge-icon" aria-hidden="true">✅</span>
+              <span>Medically Reviewed</span>
+            </div>
+            <span class="meta-sep">·</span>
+            <span class="meta-author">{authorName}</span>
+            {formattedDate && (
+              <>
+                <span class="meta-sep">·</span>
+                <time datetime={post.date}>{formattedDate}</time>
+              </>
+            )}
+          </div>
+        </header>
+
+        <!-- Featured Image -->
+        {post.featuredImage?.node && (
+          <div class="article-image">
+            <img
+              src={post.featuredImage.node.sourceUrl}
+              alt={post.featuredImage.node.altText || post.title}
+              loading="eager"
+            />
+          </div>
+        )}
+
+        <!-- Article Content -->
+        <div class="article-content prose" set:html={post.content} />
+
+        <!-- Tags -->
+        {tags.length > 0 && (
+          <div class="article-tags">
+            <span class="tags-label">Topics:</span>
+            {tags.map((tag: any) => (
+              <span class="tag">{tag.name}</span>
+            ))}
+          </div>
+        )}
+      </article>
+
+      <!-- CTA -->
+      <aside class="article-cta">
+        <span class="cta-icon" aria-hidden="true">🥤</span>
+        <h2>Ready for a reset?</h2>
+        <p>Complement your healthy lifestyle with our signature 21-Day Smoothie Diet plan.</p>
+        <a href="/recipes" class="cta-btn">Explore Recipes →</a>
+      </aside>
+
+      <!-- Subscribe -->
+      <aside class="subscribe-box">
+        <h3>Subscribe to Guru Insights</h3>
+        <p>Get the latest medical breakdowns of trendy diets delivered weekly.</p>
+        <form class="subscribe-form" action="#" method="POST">
+          <input type="email" placeholder="your@email.com" required aria-label="Email" />
+          <button type="submit">Subscribe</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .article-page {
+    padding: 2rem 1.5rem 4rem;
+  }
+  .article-inner {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: #888;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a {
+    color: #5d5d5d;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .breadcrumb a:hover { color: #4F7942; }
+  .breadcrumb .current {
+    color: #4F7942;
+    font-weight: 600;
+  }
+
+  /* Header */
+  .article-header {
+    margin-bottom: 2.5rem;
+  }
+  .article-cats {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .cat-badge {
+    padding: 0.25rem 0.75rem;
+    background: #e6ede3;
+    color: #406338;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .article-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.875rem;
+    color: #888;
+    flex-wrap: wrap;
+  }
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    background: #f4f7f3;
+    border: 1px solid #cddbc7;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #406338;
+    font-size: 0.813rem;
+  }
+  .badge-icon { font-size: 0.875rem; }
+  .meta-sep { color: #d1d1d1; }
+  .meta-author { font-weight: 600; color: #4f4f4f; }
+
+  /* Featured Image */
+  .article-image {
+    margin-bottom: 2.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(79, 121, 66, 0.08);
+  }
+  .article-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Article Content */
+  .article-content {
+    margin-bottom: 3rem;
+  }
+
+  /* Tags */
+  .article-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #e6ede3;
+    margin-bottom: 3rem;
+  }
+  .tags-label {
+    font-weight: 600;
+    color: #4f4f4f;
+    font-size: 0.875rem;
+  }
+  .tag {
+    padding: 0.25rem 0.625rem;
+    background: #f4f7f3;
+    border: 1px solid #e6ede3;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #5d5d5d;
+  }
+
+  /* CTA */
+  .article-cta {
+    background: linear-gradient(135deg, #4F7942, #2b4026);
+    border-radius: 20px;
+    padding: 2.5rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .cta-icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+  .article-cta h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 0.75rem;
+  }
+  .article-cta p {
+    color: rgba(255,255,255,0.85);
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: #fff;
+    color: #4F7942;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cta-btn:hover {
+    background: #f4f7f3;
+    transform: translateY(-1px);
+  }
+
+  /* Subscribe */
+  .subscribe-box {
+    background: #fff;
+    border: 2px solid #cddbc7;
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+  }
+  .subscribe-box h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.5rem;
+  }
+  .subscribe-box p {
+    color: #5d5d5d;
+    margin: 0 0 1.25rem;
+    font-size: 0.938rem;
+  }
+  .subscribe-form {
+    display: flex;
+    max-width: 24rem;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #cddbc7;
+  }
+  .subscribe-form input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    outline: none;
+    font-size: 0.875rem;
+    background: #f9f7f2;
+  }
+  .subscribe-form button {
+    padding: 0.75rem 1.25rem;
+    background: #4F7942;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .subscribe-form button:hover { background: #406338; }
+</style>

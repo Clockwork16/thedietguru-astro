@@ -1,0 +1,240 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { fetchGraphQL, GET_RECIPES } from '../../lib/graphql';
+
+let recipes: any[] = [];
+let fetchError = false;
+
+try {
+  const data = await fetchGraphQL(GET_RECIPES, { first: 20 });
+  recipes = data?.posts?.nodes || [];
+} catch (e) {
+  fetchError = true;
+  console.error('Failed to fetch recipes:', e);
+}
+
+const categories = ['All', 'Smoothies', 'Bowls', 'Salads', 'Snacks'];
+---
+
+<Layout
+  title="Healthy Recipes"
+  description="Explore delicious, nutrient-dense recipes designed by clinical nutritionists. Each recipe includes full nutritional breakdowns."
+  keywords={['healthy recipes', 'nutrition', 'smoothie recipes', 'power bowls', 'diet guru recipes']}
+  canonicalPath="/recipes"
+>
+  <main class="recipes-page">
+    <div class="page-inner">
+      <!-- Page Header -->
+      <header class="page-header">
+        <div class="header-badge">
+          <span aria-hidden="true">🥗</span>
+          Food is Medicine
+        </div>
+        <h1 class="page-title">Healthy Recipes</h1>
+        <p class="page-subtitle">
+          Nutrient-dense meals designed by clinical nutritionists.
+          Every recipe includes a full nutritional breakdown.
+        </p>
+      </header>
+
+      <!-- Category Tabs -->
+      <nav class="category-tabs" aria-label="Recipe categories">
+        {categories.map((cat, i) => (
+          <button
+            class:list={['tab-btn', { active: i === 0 }]}
+            data-category={cat.toLowerCase()}
+          >
+            {cat}
+          </button>
+        ))}
+      </nav>
+
+      <!-- Recipe Grid -->
+      {fetchError ? (
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">🍳</span>
+          <h2>Loading Recipes...</h2>
+          <p>Our kitchen is warming up. Please check back shortly.</p>
+        </div>
+      ) : recipes.length > 0 ? (
+        <div class="recipe-grid">
+          {recipes.map((recipe: any) => (
+            <RecipeCard
+              slug={recipe.slug}
+              title={recipe.title}
+              excerpt={recipe.excerpt}
+              featuredImage={recipe.featuredImage?.node}
+              calories={recipe.nutritionData?.calories}
+              protein={recipe.nutritionData?.protein}
+              hoverLabel="View Recipe"
+              linkBase="/recipes"
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">👩‍🍳</span>
+          <h2>Recipes Coming Soon</h2>
+          <p>Our nutritionists are perfecting new recipes. Check back soon for healthy, delicious meals!</p>
+        </div>
+      )}
+
+      <!-- CTA -->
+      <aside class="recipes-cta">
+        <div class="cta-inner">
+          <h2 class="cta-title">🥤 The 21-Day Smoothie Diet</h2>
+          <p class="cta-desc">
+            Transform your gut health with our curated liquid nutrition protocol.
+            Scientifically balanced macros in every sip.
+          </p>
+          <a href="#" class="cta-btn">Start Your Journey →</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .recipes-page {
+    padding: 3rem 1.5rem 4rem;
+  }
+  .page-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 1rem;
+    background: #e6ede3;
+    border: 1px solid #cddbc7;
+    border-radius: 24px;
+    font-size: 0.813rem;
+    font-weight: 600;
+    color: #406338;
+    margin-bottom: 1.25rem;
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    color: #5d5d5d;
+    max-width: 36rem;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Category Tabs */
+  .category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 1.25rem;
+    background: #fff;
+    border: 1.5px solid #cddbc7;
+    border-radius: 24px;
+    color: #5d5d5d;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover {
+    border-color: #4F7942;
+    color: #4F7942;
+  }
+  .tab-btn.active {
+    background: #4F7942;
+    border-color: #4F7942;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Recipe Grid */
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  @media (min-width: 640px) {
+    .recipe-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .recipe-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    border-radius: 20px;
+    border: 2px dashed #cddbc7;
+    margin-bottom: 4rem;
+  }
+  .empty-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+  .empty-state h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.5rem;
+  }
+  .empty-state p { color: #888; margin: 0; }
+
+  /* CTA */
+  .recipes-cta {
+    background: linear-gradient(135deg, #4F7942, #344f2e);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    color: #fff;
+  }
+  .cta-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 0.75rem;
+  }
+  .cta-desc {
+    color: rgba(255,255,255,0.85);
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: #fff;
+    color: #4F7942;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cta-btn:hover {
+    background: #f4f7f3;
+    transform: translateY(-1px);
+  }
+</style>

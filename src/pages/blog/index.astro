@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { fetchGraphQL, GET_POSTS } from '../../lib/graphql';
+
+let posts: any[] = [];
+let fetchError = false;
+
+try {
+  const data = await fetchGraphQL(GET_POSTS, { first: 20 });
+  posts = data?.posts?.nodes || [];
+} catch (e) {
+  fetchError = true;
+  console.error('Failed to fetch posts:', e);
+}
+---
+
+<Layout
+  title="Articles"
+  description="Science-backed health articles, food investigations, and nutrition deep-dives from The Diet Guru."
+  keywords={['health articles', 'diet science', 'nutrition blog', 'food investigation', 'diet guru']}
+  canonicalPath="/blog"
+>
+  <main class="blog-page">
+    <div class="page-inner">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Latest Articles</h1>
+        <p class="page-subtitle">
+          Science-backed investigations into the foods you eat every day.
+          Medically reviewed. No hype, just data.
+        </p>
+      </header>
+
+      <!-- Posts Grid -->
+      {fetchError ? (
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">📡</span>
+          <h2>Connecting to Content...</h2>
+          <p>We're loading the latest articles. Please check back shortly.</p>
+        </div>
+      ) : posts.length > 0 ? (
+        <div class="posts-grid">
+          {posts.map((post: any) => (
+            <PostCard
+              slug={post.slug}
+              title={post.title}
+              excerpt={post.excerpt}
+              date={post.date}
+              featuredImage={post.featuredImage?.node}
+              category={post.categories?.nodes?.[0]?.name}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">✍️</span>
+          <h2>Articles Coming Soon</h2>
+          <p>Our medical writers are hard at work. Check back soon for deep dives into nutrition science.</p>
+        </div>
+      )}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .blog-page {
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .page-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    color: #5d5d5d;
+    max-width: 36rem;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .posts-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    border-radius: 20px;
+    border: 2px dashed #cddbc7;
+  }
+  .empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .empty-state h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.5rem;
+  }
+  .empty-state p {
+    color: #888;
+    margin: 0;
+  }
+</style>
