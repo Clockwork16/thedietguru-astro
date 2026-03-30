@@ -96,13 +96,21 @@ export const GET_ALL_SLUGS = `
 
 export const GET_ALL_BLOG_POSTS = `
   query GetAllBlogPosts {
-    posts(first: 100, where: { categoryIn: [1, 3, 4, 6, 16, 19, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 68] }) {
+    posts(first: 100, where: { categoryIn: [52, 45, 49, 47, 44] }) {
       nodes {
         slug
         title
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
         categories {
           nodes {
             databaseId
+            name
           }
         }
       }
