@@ -1,4 +1,4 @@
-const WP_GRAPHQL_URL = 'https://thedietguru.org/backend/graphql';
+const WP_GRAPHQL_URL = 'https://thedietguru.org/backend/graphql/';
 
 export interface GraphQLResponse<T = any> {
   data: T;
