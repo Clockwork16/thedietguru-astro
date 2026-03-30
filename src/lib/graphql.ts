@@ -112,7 +112,7 @@ export const GET_ALL_BLOG_POSTS = `
 
 export const GET_RECIPES = `
   query GetRecipes($first: Int = 20) {
-    posts(first: $first, where: { categoryName: "recipes" }) {
+    posts(first: $first, where: { categoryId: 51 }) {
       nodes {
         slug
         title
@@ -124,10 +124,15 @@ export const GET_RECIPES = `
           }
         }
         categories {
-          nodes { name slug }
+          nodes {
+            name
+            slug
+          }
         }
         author {
-          node { name }
+          node {
+            name
+          }
         }
       }
     }
