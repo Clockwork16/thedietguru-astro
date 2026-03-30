@@ -34,6 +34,6 @@
 # Proxy wp-content (images, uploads, themes)
 [[redirects]]
   from = "/wp-content/*"
-  to = "https://174.138.190.150/wp-content/:splat"
+  to = "http://174.138.190.150/wp-content/:splat"
   status = 200
   force = true
