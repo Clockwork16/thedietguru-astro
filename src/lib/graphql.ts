@@ -29,7 +29,7 @@ export async function fetchGraphQL<T = any>(
     return json.data;
   } catch (e) {
     console.error("Engine returned HTML instead of JSON. Preview:", text.substring(0, 100));
-    throw new Error("The WordPress engine is blocking the data request with an HTML page.");
+    throw new Error("The WordPress engine is blocking the data request.");
   }
 }
 
