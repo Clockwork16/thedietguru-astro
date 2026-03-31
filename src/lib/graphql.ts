@@ -30,7 +30,7 @@ export async function fetchGraphQL<T = any>(
     console.error("Engine returned HTML. Check WP settings.");
     throw new Error("Server Error: Received HTML instead of JSON");
   }
-}/ ─── Common Queries ──────────────────────────────────────────────
+} // ─── Common Queries ──────────────────────────────────────────────
 
 export const GET_POSTS = `
   query GetPosts($first: Int = 20) {
