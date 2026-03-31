@@ -3,27 +3,35 @@ const WP_GRAPHQL_URL = 'https://thedietguru.org/backend/index.php?graphql';
 export interface GraphQLResponse<T = any> {
   data: T;
   errors?: Array<{ message: string }>;
-}
-
 export async function fetchGraphQL<T = any>(
   query: string,
   variables?: Record<string, any>
 ): Promise<T> {
   const response = await fetch(WP_GRAPHQL_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, variables }),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
   });
 
-  if (!response.ok) {
-    throw new Error(`GraphQL request failed: ${response.statusText}`);
+  const text = await response.text();
+  
+  try {
+    const json = JSON.parse(text);
+    if (json.errors) {
+      console.error('GraphQL errors:', json.errors);
+    }
+    return json.data;
+  } catch (e) {
+    console.error("Engine returned HTML instead of JSON. Preview:", text.substring(0, 100));
+    throw new Error("The WordPress engine is blocking the data request with an HTML page.");
   }
-
-  const json: GraphQLResponse<T> = await response.json();
-
-  if (json.errors) {
-    console.error('GraphQL errors:', json.errors);
-  }
+}
 
   return json.data;
 }
