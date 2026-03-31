@@ -3,6 +3,8 @@ const WP_GRAPHQL_URL = 'https://thedietguru.org/backend/index.php?graphql';
 export interface GraphQLResponse<T = any> {
   data: T;
   errors?: Array<{ message: string }>;
+}
+
 export async function fetchGraphQL<T = any>(
   query: string,
   variables?: Record<string, any>
@@ -11,32 +13,24 @@ export async function fetchGraphQL<T = any>(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Accept': 'application/json'
     },
     body: JSON.stringify({
       query,
-      variables,
-    }),
+      variables
+    })
   });
 
   const text = await response.text();
   
   try {
     const json = JSON.parse(text);
-    if (json.errors) {
-      console.error('GraphQL errors:', json.errors);
-    }
     return json.data;
   } catch (e) {
-    console.error("Engine returned HTML instead of JSON. Preview:", text.substring(0, 100));
-    throw new Error("The WordPress engine is blocking the data request.");
+    console.error("Engine returned HTML. Check WP settings.");
+    throw new Error("Server Error: Received HTML instead of JSON");
   }
-}
-
-  return json.data;
-}
-
-// ─── Common Queries ──────────────────────────────────────────────
+}/ ─── Common Queries ──────────────────────────────────────────────
 
 export const GET_POSTS = `
   query GetPosts($first: Int = 20) {
