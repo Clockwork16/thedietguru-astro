@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { fetchGraphQL, GET_ALL_BLOG_POSTS, GET_POST_BY_SLUG } from '../../lib/graphql';
+import DOMPurify from 'isomorphic-dompurify';
 
 export async function getStaticPaths() {
   try {
@@ -108,7 +109,7 @@ const tags = post.tags?.nodes || [];
         )}
 
         <!-- Article Content -->
-        <div class="article-content prose" set:html={post.content} />
+        <div class="article-content prose" set:html={DOMPurify.sanitize(post.content)} />
 
         <!-- Tags -->
         {tags.length > 0 && (

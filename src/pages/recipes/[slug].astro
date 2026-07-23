@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import NutritionCard from '../../components/NutritionCard.astro';
 import { fetchGraphQL, GET_POST_BY_SLUG } from '../../lib/graphql';
+import DOMPurify from 'isomorphic-dompurify';
 
 export async function getStaticPaths() {
   const GET_ONLY_RECIPES = `
@@ -101,7 +102,7 @@ const formattedDate = post.date
           <h1 class="recipe-title">{title}</h1>
 
           {post.excerpt && (
-            <p class="recipe-desc" set:html={post.excerpt} />
+            <p class="recipe-desc" set:html={DOMPurify.sanitize(post.excerpt)} />
           )}
 
           {formattedDate && (
@@ -125,7 +126,7 @@ const formattedDate = post.date
         )}
 
         <!-- Recipe Content -->
-        <div class="recipe-content prose" set:html={content} />
+        <div class="recipe-content prose" set:html={DOMPurify.sanitize(content)} />
 
         <!-- Food Analysis -->
         {foodAnalysis && (
