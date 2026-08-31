@@ -8,11 +8,11 @@ const currentYear = new Date().getFullYear();
       <!-- Brand Column -->
       <div class="footer-col">
         <div class="footer-brand">
-          <span class="footer-logo" aria-hidden="true">🥗</span>
+          <img src="/images/guru-profile.jpg" alt="The Diet Guru" class="footer-img" />
           <h3 class="footer-title">The Diet Guru</h3>
         </div>
         <p class="footer-tagline">
-          Bridging the gap between clinical science and daily nutrition through evidence-based guidance.
+          Bridging the gap between nutritional science and daily wellness through evidence-based guidance.
         </p>
         <p class="footer-subtitle">Food is Medicine.</p>
       </div>
@@ -33,7 +33,7 @@ const currentYear = new Date().getFullYear();
       <div class="footer-col">
         <h4 class="footer-heading">Stay Connected</h4>
         <p class="footer-text">
-          Get the latest medical breakdowns of trendy diets delivered weekly.
+          Get the latest breakdowns of trendy diets and wholesome recipes delivered weekly.
         </p>
         <form class="subscribe-form" action="#" method="POST">
           <input
@@ -91,7 +91,13 @@ const currentYear = new Date().getFullYear();
     margin-bottom: 1rem;
   }
 
-  .footer-logo { font-size: 1.75rem; }
+  .footer-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #4F7942;
+  }
 
   .footer-title {
     font-size: 1.375rem;

@@ -1,55 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const team = [
-  {
-    name: 'Dr. Sarah Chen, RD, PhD',
-    role: 'Chief Medical Officer',
-    desc: 'Specializing in metabolic endocrinology and nutritional biochemistry.',
-    icon: '👩‍⚕️',
-  },
-  {
-    name: 'Marcus Thorne, MS, CSCS',
-    role: 'Lead Performance Nutritionist',
-    desc: 'Expert in nutrient timing and physiological performance optimization.',
-    icon: '🧑‍🔬',
-  },
-];
+const guruProfile = {
+  name: 'The Diet Guru, CHHC, CNC',
+  role: 'Lead Holistic Nutritionist & Wellness Strategist',
+  desc: 'Certified in holistic health and nutritional consulting, dedicated to empowering your vitality through whole-food nourishment, mindful living, and sustainable habits.',
+  image: '/images/guru-profile.jpg',
+};
 
 const pillars = [
   {
     icon: '💓',
-    title: 'Metabolic Health',
-    desc: 'Optimizing glucose response and insulin sensitivity through macronutrient precision.',
+    title: 'Metabolic Vitality',
+    desc: 'Supporting balanced energy and sustained vitality through whole-food nutrient precision.',
   },
   {
-    icon: '🦠',
-    title: 'Gut Science',
-    desc: 'Nurturing the microbiome as the central engine of systemic immunity and mental clarity.',
+    icon: '🌱',
+    title: 'Gut Health & Flora',
+    desc: 'Nurturing the microbiome as the central foundation for daily digestion, immunity, and clarity.',
   },
   {
-    icon: '🧬',
-    title: 'Longevity',
-    desc: 'Leveraging autophagy and cellular nutrition to extend both lifespan and healthspan.',
+    icon: '🥑',
+    title: 'Longevity & Real Food',
+    desc: 'Harnessing the power of clean, natural nutrition to enhance healthspan and everyday energy.',
   },
 ];
 ---
 
 <Layout
   title="Our Mission"
-  description="The Diet Guru: democratizing medical-grade nutrition science. Meet our team, learn our story, and understand our evidence-based approach."
-  keywords={['about diet guru', 'food is medicine', 'nutrition mission', 'clockwork apps']}
+  description="The Diet Guru: evidence-based nutrition and whole-food wellness. Meet the Guru, learn our story, and explore simple, sustainable eating habits."
+  keywords={['about diet guru', 'whole food nutrition', 'wellness mission', 'healthy lifestyle', 'clockwork apps']}
   canonicalPath="/about"
 >
   <main class="about-page">
     <!-- Hero -->
     <section class="about-hero">
       <div class="hero-inner">
-        <span class="hero-badge" aria-hidden="true">🩺 Medically Verified</span>
+        <span class="hero-badge" aria-hidden="true">🌱 Evidence-Based Guidance</span>
         <h1 class="hero-title">Food is Medicine</h1>
         <p class="hero-subtitle">
-          Bridging the gap between clinical science and daily nutrition
-          through evidence-based guidance.
+          Bridging the gap between nutritional science and daily living
+          through clear, evidence-based guidance.
         </p>
       </div>
     </section>
@@ -58,8 +50,8 @@ const pillars = [
       <!-- Mission -->
       <section class="mission-section">
         <blockquote class="mission-quote">
-          "To democratize medical-grade nutrition science, empowering individuals
-          to reclaim their health through precise, bio-individual dietary protocols."
+          "To make whole-food nutrition and evidence-based wellness accessible to all, empowering individuals
+          to thrive through simple, sustainable lifestyle habits."
         </blockquote>
       </section>
 
@@ -77,21 +69,23 @@ const pillars = [
         </div>
       </section>
 
-      <!-- Team -->
-      <section class="team-section">
-        <div class="team-header">
-          <h2 class="section-title">Scientific Authority</h2>
-          <p class="team-subtitle">Every plan is medically reviewed and verified.</p>
+      <!-- The Guru Profile -->
+      <section class="guru-section">
+        <div class="guru-header">
+          <h2 class="section-title">Meet The Guru</h2>
+          <p class="guru-subtitle">Rooted in real-food principles and whole-body vitality.</p>
         </div>
-        <div class="team-grid">
-          {team.map(member => (
-            <div class="team-card">
-              <span class="team-icon" aria-hidden="true">{member.icon}</span>
-              <h3 class="team-name">{member.name}</h3>
-              <p class="team-role">{member.role}</p>
-              <p class="team-desc">{member.desc}</p>
+        <div class="guru-card-container">
+          <div class="guru-card">
+            <div class="guru-image-box">
+              <img src={guruProfile.image} alt={guruProfile.name} class="guru-avatar-img" />
             </div>
-          ))}
+            <div class="guru-details">
+              <h3 class="guru-name">{guruProfile.name}</h3>
+              <p class="guru-role">{guruProfile.role}</p>
+              <p class="guru-desc">{guruProfile.desc}</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -100,19 +94,19 @@ const pillars = [
         <h2 class="section-title">Our Story</h2>
         <div class="story-content">
           <p>
-            The Diet Guru was born from a simple realization: the internet is filled with diet trends,
-            but starving for clinical truth. We saw a world where health was being marketed, not managed.
+            The Diet Guru was born from a simple realization: the internet is filled with diet fads and noisy trends,
+            but starving for grounded truth. We saw a world where health was being marketed, not nurtured.
           </p>
           <p>
             In partnership with <strong>Clockwork Apps</strong>, we built a platform that translates the
-            complexity of peer-reviewed journals into actionable, daily nutrition. We don't believe in
-            "diets." We believe in biological data.
+            science of nutrition into practical, delicious everyday food. We don't believe in restrictive
+            "fad diets." We believe in nutrient-dense real foods, mindful habits, and long-term vitality.
           </p>
           <div class="story-footer">
             <p>
-              <em>The Diet Guru is a high-authority health technology initiative by
-              <a href="https://clockworkapps.com">Clockwork Apps</a>. We are committed to medical
-              transparency and data privacy in all our health protocols.</em>
+              <em>The Diet Guru is a wellness technology initiative by
+              <a href="https://clockworkapps.com">Clockwork Apps</a>. We are committed to transparency,
+              authenticity, and sustainable wellness education.</em>
             </p>
           </div>
         </div>
@@ -232,55 +226,69 @@ const pillars = [
     margin: 0;
   }
 
-  /* Team */
-  .team-section { padding: 0 0 4rem; }
-  .team-header { margin-bottom: 2rem; }
-  .team-subtitle {
+  /* Guru Profile */
+  .guru-section { padding: 0 0 4rem; }
+  .guru-header { margin-bottom: 2rem; }
+  .guru-subtitle {
     text-align: center;
-    color: #888;
+    color: #666;
     margin: -0.75rem 0 0;
   }
-  .team-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .guru-card-container {
+    max-width: 38rem;
+    margin: 0 auto;
   }
-  @media (min-width: 640px) {
-    .team-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  .team-card {
+  .guru-card {
     background: linear-gradient(135deg, #f4f7f3 0%, #fff 100%);
     border: 2px solid #cddbc7;
-    border-radius: 16px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
     text-align: center;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(79, 121, 66, 0.08);
   }
-  .team-card:hover { border-color: #4F7942; }
-  .team-icon {
+  .guru-card:hover {
+    border-color: #4F7942;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(79, 121, 66, 0.14);
+  }
+  .guru-image-box {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #4F7942;
+    box-shadow: 0 4px 14px rgba(79, 121, 66, 0.2);
+  }
+  .guru-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    font-size: 3rem;
-    margin-bottom: 1rem;
   }
-  .team-name {
-    font-size: 1.125rem;
-    font-weight: 700;
+  .guru-name {
+    font-size: 1.5rem;
+    font-weight: 800;
     color: #1A1A1A;
-    margin: 0 0 0.375rem;
+    margin: 0 0 0.5rem;
   }
-  .team-role {
-    font-size: 0.813rem;
-    font-weight: 600;
+  .guru-role {
+    font-size: 0.875rem;
+    font-weight: 700;
     color: #4F7942;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin: 0 0 0.75rem;
+    letter-spacing: 0.06em;
+    margin: 0 0 1rem;
   }
-  .team-desc {
-    font-size: 0.875rem;
-    color: #5d5d5d;
-    line-height: 1.6;
+  .guru-desc {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
     margin: 0;
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* Story */
