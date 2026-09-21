@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WJ6863D3');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Everyday Superfood Index: Self-Diagnosis & Mineral Protocol | The Diet Guru</title>
+  <style>
+    :root {
+      --bg-slate: #F6F7F5;
+      --card-white: #FFFFFF;
+      --text-obsidian: #121614;
+      --text-muted: #525E54;
+      --primary-sage: #385E38;
+      --primary-sage-hover: #294729;
+      --primary-sage-subtle: #E8F0E8;
+      --border-clinical: #DDE3DC;
+      --badge-amber-bg: #FEF3C7;
+      --badge-amber-text: #92400E;
+      --badge-amber-border: #FDE68A;
+      --shadow-clinical: 0 12px 32px rgba(18, 22, 20, 0.07), 0 2px 6px rgba(18, 22, 20, 0.04);
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-slate);
+      color: var(--text-obsidian);
+      font-family: var(--font-stack);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Bar */
+    header {
+      background: var(--card-white);
+      border-bottom: 1px solid var(--border-clinical);
+      padding: 16px 28px;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      font-size: 1.2rem;
+      color: var(--text-obsidian);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--primary-sage);
+      background: var(--primary-sage-subtle);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--primary-sage);
+      border-radius: 50%;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1120px;
+      margin: 44px auto 64px;
+      padding: 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 52px;
+      align-items: start;
+    }
+
+    @media (max-width: 880px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      main {
+        margin: 24px auto 40px;
+      }
+    }
+
+    /* Left Column Copy */
+    .pill-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--badge-amber-bg);
+      color: var(--badge-amber-text);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      border: 1px solid var(--badge-amber-border);
+    }
+
+    h1 {
+      font-size: 2.35rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--text-obsidian);
+      margin-bottom: 18px;
+      letter-spacing: -0.6px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.95rem;
+      }
+    }
+
+    .subhead {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      line-height: 1.55;
+    }
+
+    /* Clinical Proof Strip */
+    .comparison-strip {
+      background: var(--card-white);
+      border: 1px solid var(--border-clinical);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    .strip-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .strip-stat-num {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary-sage);
+    }
+
+    .strip-stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--primary-sage);
+      margin-bottom: 16px;
+    }
+
+    /* Diagnostic Checklist */
+    .mechanism-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .mech-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.98rem;
+    }
+
+    .mech-tag {
+      flex-shrink: 0;
+      background: var(--primary-sage);
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 76px;
+      text-align: center;
+    }
+
+    .mech-desc strong {
+      color: var(--text-obsidian);
+      font-weight: 700;
+    }
+
+    /* Right Column Opt-In Box */
+    .optin-box {
+      background: var(--card-white);
+      border: 1px solid var(--border-clinical);
+      border-radius: 12px;
+      box-shadow: var(--shadow-clinical);
+      padding: 34px 28px;
+      position: sticky;
+      top: 24px;
+    }
+
+    .box-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-clinical);
+    }
+
+    .box-header h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .box-header p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-obsidian);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1.5px solid var(--border-clinical);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background: #FAFBFA;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-sage);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(56, 94, 56, 0.15);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary-sage);
+      color: #FFFFFF;
+      border: none;
+      padding: 16px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 4px 14px rgba(56, 94, 56, 0.25);
+      margin-top: 18px;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-sage-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      background: #88A288;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-error-msg {
+      display: none;
+      background: #FEE2E2;
+      border: 1px solid #FCA5A5;
+      color: #991B1B;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-top: 14px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .trust-footer {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .standards-badge {
+      margin-top: 22px;
+      background: var(--bg-slate);
+      border: 1px solid var(--border-clinical);
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Footer & Legal */
+    footer {
+      border-top: 1px solid var(--border-clinical);
+      background: #ECEEEA;
+      padding: 40px 24px 60px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .footer-inner strong {
+      color: var(--text-obsidian);
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ6863D3"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        The Diet Guru
+      </div>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        Functional Nutrition Brief
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-grid">
+      <!-- Left Column: Diagnostic Copy & Proof Strip -->
+      <div>
+        <div class="pill-eyebrow">
+          <span>⚠️</span> Diagnostic Health &amp; Grocery Matrix
+        </div>
+        <h1>Your Energy Crashes, Belly Bloat, and Brain Fog Aren’t Aging. Your Metabolism Is Missing Biological Fuel.</h1>
+        <p class="subhead">
+          Stop guessing what your body needs. Decode the physiological warning signals behind post-meal fatigue, sluggish bile, and vascular stiffness—and use targeted whole-food compounds to reset your cells.
+        </p>
+
+        <!-- Stat Comparison Strip -->
+        <div class="comparison-strip">
+          <div class="strip-stat">
+            <span class="strip-stat-num">Up to 35%</span>
+            <span class="strip-stat-lbl">Glucose Spike Drop</span>
+          </div>
+          <div class="strip-stat">
+            <span class="strip-stat-num">50 Foods</span>
+            <span class="strip-stat-lbl">Targeted Compounds</span>
+          </div>
+          <div class="strip-stat">
+            <span class="strip-stat-num">14 Pages</span>
+            <span class="strip-stat-lbl">Clinical Blueprint</span>
+          </div>
+        </div>
+
+        <div class="section-title">
+          Inside This Free 14-Page Clinical Kitchen Blueprint:
+        </div>
+
+        <ul class="mechanism-list">
+          <li class="mech-item">
+            <span class="mech-tag">Energy Crash</span>
+            <div class="mech-desc">
+              <strong>The Alpha-Amylase Glucose Brake:</strong> Why afternoon crashes signal rapid starch hydrolysis—and how 1 tablespoon of raw ACV before meals blunts peak postprandial glucose by up to 35% (Page 3).
+            </div>
+          </li>
+          <li class="mech-item">
+            <span class="mech-tag">Bile Stagnation</span>
+            <div class="mech-desc">
+              <strong>The 3-Minute Morning Bile Reset:</strong> Why feeling heavily weighed down after meals points to sluggish bile—and the bitter-acidic morning formula that evacuates stagnant overnight bile to jumpstart fat digestion (Page 5).
+            </div>
+          </li>
+          <li class="mech-item">
+            <span class="mech-tag">Gut Bloat</span>
+            <div class="mech-desc">
+              <strong>The L-Menthol Smooth Muscle Antispasmodic:</strong> What persistent lower belly distention reveals about bowel wall tension—and how steeped peppermint relaxes calcium channels to release trapped gas (Page 6).
+            </div>
+          </li>
+          <li class="mech-item">
+            <span class="mech-tag">Visceral Fat</span>
+            <div class="mech-desc">
+              <strong>The Hepatic Choline Fat-Export Lever:</strong> Why stubborn liver fat accumulation stems from choline depletion—and how pasture-raised egg yolks supply the phosphatidylcholine required to export trapped lipids (Page 4).
+            </div>
+          </li>
+          <li class="mech-item">
+            <span class="mech-tag">Vascular Fog</span>
+            <div class="mech-desc">
+              <strong>The Dietary Nitrate Vasodilator:</strong> Why midday mental fatigue and cold extremities indicate endothelial resistance—and how red beet inorganic nitrates convert to nitric oxide to open micro-capillary blood flow (Page 8).
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right Column: Brevo Opt-In Box -->
+      <div>
+        <div class="optin-box">
+          <div class="box-header">
+            <h3>Get The Everyday Superfood Index</h3>
+            <p>Download the free 14-page clinical grocery matrix, biochemical mechanism breakdowns, and action protocols directly to your inbox.</p>
+          </div>
+
+          <form id="brevo-form" action="/api/subscribe" method="POST">
+            <!-- Bot honeypot field -->
+            <div style="display:none;" aria-hidden="true">
+              <label for="website">Leave blank</label>
+              <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+              <label for="FIRSTNAME">First Name</label>
+              <input 
+                type="text" 
+                id="FIRSTNAME" 
+                name="FIRSTNAME" 
+                class="form-input" 
+                placeholder="e.g. Brad" 
+                autocomplete="given-name" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="EMAIL">Your Primary Email</label>
+              <input 
+                type="email" 
+                id="EMAIL" 
+                name="EMAIL" 
+                class="form-input" 
+                placeholder="name@example.com" 
+                autocomplete="email" 
+                required
+              >
+            </div>
+
+            <button type="submit" class="btn-submit" id="btn-submit">
+              SEND ME THE EVERYDAY SUPERFOOD INDEX ➔
+            </button>
+
+            <div id="form-error" class="form-error-msg"></div>
+          </form>
+
+          <div class="trust-footer">
+            🔒 100% Free Instant Download • Zero Spam • Unsubscribe Anytime
+          </div>
+
+          <div class="standards-badge">
+            <strong>Clinical Elite Promise:</strong> Zero generic "fad diet" advice, zero sponsored supplements, and zero seed oil recommendations. Strictly evidence-based functional food swaps.
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>Medical & FDA Disclaimer:</strong> The information provided in this guide is for educational and informational purposes only and does not constitute medical advice, clinical diagnosis, or treatment. Always consult a licensed physician or healthcare professional before making dietary changes, adopting fasting protocols, or modifying any prescribed medications. Nutritional protocols described are based on functional food biochemistry; individual metabolic responses vary. Statements within this document have not been evaluated by the Food and Drug Administration (FDA) and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+      <p style="margin-top: 14px;">&copy; 2026 The Diet Guru • Food as Medicine Protocol • thedietguru.org • All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('brevo-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById('btn-submit');
+      const errDiv = document.getElementById('form-error');
+      errDiv.style.display = 'none';
+      errDiv.textContent = '';
+
+      const firstName = document.getElementById('FIRSTNAME').value.trim();
+      const email = document.getElementById('EMAIL').value.trim();
+      const website = document.getElementById('website').value.trim();
+
+      const originalBtnText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = 'DISPATCHING ACCESS...';
+
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            firstName: firstName,
+            email: email,
+            website: website
+          })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok && !result.success) {
+          throw new Error(result.error || 'Unable to subscribe. Please try again.');
+        }
+
+        // Push GTM Lead Event
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'lead_form_submitted',
+          lead_type: 'free_superfood_index',
+          form_name: 'sf_v1_self_diagnosis',
+          campaign: 'sf-v1'
+        });
+
+        // Set subscriber name for personalized receipt greeting
+        if (firstName) {
+          localStorage.setItem('dg_subscriber_name', firstName);
+        }
+
+        // Set OpSec verification flag in sessionStorage
+        sessionStorage.setItem('dg_lead_verified', 'true');
+
+        // Smooth redirect to receipt / confirmation page
+        window.location.href = '/sf-v1-rcpt';
+
+      } catch (err) {
+        console.error('Subscription error:', err);
+        errDiv.textContent = err.message || 'An unexpected error occurred. Please verify your connection and try again.';
+        errDiv.style.display = 'block';
+        btn.disabled = false;
+        btn.innerHTML = originalBtnText;
+      }
+    });
+  </script>
+
+</body>
+</html>

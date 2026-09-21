@@ -16,4 +16,11 @@
   status = 200
   force = true
 
+# Brevo Lead Magnet Subscription API
+[[redirects]]
+  from = "/api/subscribe"
+  to = "/.netlify/functions/subscribe"
+  status = 200
+
+
 
