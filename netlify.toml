@@ -22,5 +22,12 @@
   to = "/.netlify/functions/subscribe"
   status = 200
 
+# OpSec: Prevent search engines from indexing or archiving lead magnet PDFs
+[[headers]]
+  for = "/assets/docs/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+
 
 
